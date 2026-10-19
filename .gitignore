@@ -1,0 +1,16 @@
+# Compiled output
+out/
+target/
+*.class
+
+# Generated database
+*.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

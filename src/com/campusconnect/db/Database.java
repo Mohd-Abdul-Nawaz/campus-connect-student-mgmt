@@ -10,7 +10,17 @@ import java.util.List;
  * Demonstrates JDBC, SQL, and Data Access Object (DAO) pattern.
  */
 public class Database {
+    private static final String DRIVER_CLASS = "org.sqlite.JDBC";
     private final String url = "jdbc:sqlite:campus.db";
+
+    static {
+        try {
+            Class.forName(DRIVER_CLASS);
+        } catch (ClassNotFoundException e) {
+            System.err.println("SQLite JDBC driver not found on classpath. "
+                    + "Add sqlite-jdbc.jar to the classpath. Cause: " + e.getMessage());
+        }
+    }
 
     public Database() {
         initializeTables();

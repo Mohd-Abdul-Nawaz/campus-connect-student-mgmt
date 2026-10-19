@@ -33,10 +33,15 @@ Created as a showcase project for the **Honeywell Software Engineering Intern** 
 ```
 campus-connect-student-mgmt/
 ├── src/
-│   ├── com/campusconnect/model/Student.java      # Domain model (encapsulation)
-│   ├── com/campusconnect/db/Database.java        # JDBC + SQL operations
-│   └── com/campusconnect/ui/CampusApp.java       # Swing GUI (main entry)
-├── campus.db                                     # Auto-created SQLite database
+│   └── com/campusconnect/
+│       ├── model/Student.java      # Domain model (encapsulation)
+│       ├── db/Database.java        # JDBC + SQL operations
+│       └── ui/CampusApp.java       # Swing GUI (main entry)
+├── lib/sqlite-jdbc.jar             # SQLite JDBC driver
+├── build.bat                       # Windows build script
+├── build.sh                        # Linux/Mac build script
+├── pom.xml                         # Maven build (optional)
+├── campus.db                       # Auto-created SQLite database
 └── README.md
 ```
 
@@ -44,32 +49,58 @@ campus-connect-student-mgmt/
 
 ## 🚀 Quick Start (Local)
 
-### 1. Compile
+### Option A — Build Scripts (easiest)
+
+**Windows:**
 ```bash
-cd campus-connect-student-mgmt/src
-javac com/campusconnect/model/Student.java com/campusconnect/db/Database.java com/campusconnect/ui/CampusApp.java
+build.bat
 ```
 
-### 2. Run
+**Linux / Mac:**
 ```bash
-cd ..
-java -cp src com.campusconnect.ui.CampusApp
+chmod +x build.sh
+./build.sh
 ```
 
-### 3. SQLite JDBC Driver
-The project uses SQLite. If you get a `ClassNotFoundException` for the SQLite JDBC driver, download `sqlite-jdbc-3.x.x.jar` from:
-https://github.com/xerial/sqlite-jdbc/releases
+Both scripts compile the sources and launch the GUI with the SQLite driver on the classpath.
 
-Then run with the driver on the classpath:
+### Option B — Manual Compile & Run
+
+**1. Compile**
+```bash
+javac -cp "lib/sqlite-jdbc.jar" -d out \
+  src/com/campusconnect/model/Student.java \
+  src/com/campusconnect/db/Database.java \
+  src/com/campusconnect/ui/CampusApp.java
+```
+
+**2. Run**
 ```bash
 # Windows
-java -cp "src;sqlite-jdbc.jar" com.campusconnect.ui.CampusApp
+java -cp "out;lib/sqlite-jdbc.jar" com.campusconnect.ui.CampusApp
 
-# Mac/Linux
-java -cp "src:sqlite-jdbc.jar" com.campusconnect.ui.CampusApp
+# Linux / Mac
+java -cp "out:lib/sqlite-jdbc.jar" com.campusconnect.ui.CampusApp
 ```
 
-> **Note:** For simplicity, the included code uses Java's built-in `javax.sql` with SQLite via the JDBC driver. Add the sqlite-jdbc JAR to your classpath when running.
+### Option C — Maven
+
+```bash
+mvn clean package
+java -cp "target/classes;lib/sqlite-jdbc.jar" com.campusconnect.ui.CampusApp
+```
+
+> **Note:** `campus.db` is created automatically in the working directory on first run.
+> The SQLite JDBC driver is bundled in `lib/sqlite-jdbc.jar` — no extra setup needed.
+
+### Git
+```bash
+git init
+git add .
+git commit -m "Initial commit: CampusConnect student management system"
+git remote add origin https://github.com/Mohd-Abdul-Nawaz/campus-connect-student-mgmt.git
+git push -u origin main
+```
 
 ---
 

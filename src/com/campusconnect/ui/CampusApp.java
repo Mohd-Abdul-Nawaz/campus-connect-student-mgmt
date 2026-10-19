@@ -62,7 +62,7 @@ public class CampusApp extends JFrame {
 
         JScrollPane scroll = new JScrollPane(table);
         panel.add(scroll, BorderLayout.CENTER);
-    }
+
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton btnUpdate = new JButton("Update Selected");
         JButton btnDelete = new JButton("Delete Selected");
